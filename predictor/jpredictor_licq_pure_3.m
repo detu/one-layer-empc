@@ -13,10 +13,11 @@ function [x_init, y_init, elapsedqp] = jpredictor_licq_pure_3(problem, p_init, p
 % Copyright: Process Control Group - NTNU Trondheim 2016
 
 clear prob;
-sym pp;
-p       = p_init;
-theprob = @(pp)problem(pp);
-prob    = theprob(p);
+%sym pp;
+%p       = p_init;
+%theprob = @(pp)problem(pp);
+%theprob  = @problem;
+%prob     = @(p_init)problem(p_init);
 t       = 0;
 alpha_2 = 0.5;
 % number of iteration
@@ -50,7 +51,8 @@ while (t <= 1)
     
     % solve QP problem
     % output from QP is y (directional derivative)
-    [y, ~, qp_exit, lamda, qp_run] = solve_qp(prob, p_init, x_init, y_init, step, lb, ub, N, x0, lb_init, ub_init);  % supply initial guess
+    %[y, ~, qp_exit, lamda, qp_run] = solve_qp(prob, p_init, x_init, y_init, step, lb, ub, N, x0, lb_init, ub_init);  % supply initial guess
+    [y, ~, qp_exit, lamda, qp_run] = solve_qp(@(x_init,y_init,p_init,N)problem(x_init,y_init,p_init,N), p_init, x_init, y_init, step, lb, ub, N, x0, lb_init, ub_init);
     elapsedqp = elapsedqp + qp_run;
     if (qp_exit < 0) % QP is infeasible
         
@@ -106,7 +108,8 @@ function [y, qp_val, qp_exit, lamda, elapsedqp] = solve_qp(prob, p, x_init, y_in
     
 
     % obtain derivatives information
-    [~,g,H,Lxp,cin,~,~,Jeq,dpe,~] = prob.obj(x_init,y_init,p, N);    
+    %[~,g,H,Lxp,cin,~,~,Jeq,dpe,~] = prob.obj(x_init,y_init,p, N);
+    [~,g,H,Lxp,cin,~,~,Jeq,dpe,~] = prob(x_init,y_init,p, N);
 
     % QP setup
     A   = [];

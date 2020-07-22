@@ -9,4 +9,6 @@ There are two case examples, which are a cyclic process and distillation column 
 
 For sensitivity-based codes (you need MINOS QP solver to run) are:
 - AsMsNmpcCyclic.m
-- AsMsNMPCDistColA.m.  
+- AsMsNMPCDistColA.m.
+
+Before running the simulations, please modify CASADI directory in the startup.m code.   

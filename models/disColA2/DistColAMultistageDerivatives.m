@@ -1,4 +1,4 @@
-function [prob] = DistColAMultistageDerivatives(p)
+function [f,g,H,Lxp,cst,J,cp,Jeq,dpe,Hobj] = DistColAMultistageDerivatives(x,y,p,N)
 %DISTCOLAMULTISTAGEDERIVATIVES Summary of this function goes here
 % 
 % [OUTPUTARGS] = DISTCOLAMULTISTAGEDERIVATIVES(INPUTARGS) Explain usage here
@@ -14,19 +14,15 @@ function [prob] = DistColAMultistageDerivatives(p)
 
 import casadi.*
 
-prob = struct('neq',{0},'niq',{0},'cin',{0},'ceq',{0},'dp_in',{0},'dp_eq',{0},'hess',{0},'lxp',{0},'x',0,'name',0);
-prob.neq  = 2000;         % HARD-CODE !    % number of equality constraint
-prob.niq  = 0;            % number of inequality constraint
-prob.name = 'Distillation Column A model';
-prob.x    = zeros(2,1);
-
-prob.obj  = (@(x,y,p,N)(objective(x,y,p,N)));
-
-end
-
-function [f,g,H,Lxp,cst,J,cp,Jeq,dpe,Hobj] = objective(x,y,p,N)
-
-import casadi.*
+% prob = struct('neq',{0},'niq',{0},'cin',{0},'ceq',{0},'dp_in',{0},'dp_eq',{0},'hess',{0},'lxp',{0},'x',0,'name',0);
+% prob.neq  = 2000;         % HARD-CODE !    % number of equality constraint
+% prob.niq  = 0;            % number of inequality constraint
+% prob.name = 'Distillation Column A model';
+% prob.x    = zeros(2,1);
+% 
+% prob.obj  = (@(x,y,p,N)(objective(x,y,p,N)));
+% 
+% end
 
 nPrimal = numel(x);
 nDual   = numel(y.lam_g);

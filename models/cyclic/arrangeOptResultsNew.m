@@ -9,16 +9,16 @@ function [u_nlp_opt,plotState, xu_opt] = arrangeOptResultsNew(data, lb, ub, N)
 % 
 % See also: List related files here
 
-% $Author: suwartad $	$Date: 2018/12/02 20:26:15 $	$Revision: 0.1 $
-% Copyright: Process Control Group - NTNU Trondheim 2018
+% $Author: suwartad $	$Date: 2019/01/16 15:25:47 $	$Revision: 0.1 $
+% Copyright: Process Control Group - NTNU Trondheim 2019
 
 global nk nx nu d ns;
 
 % optimized initial state
-x0_opt       = data(1:nx+1); %+1 for parameter  
-data(1:nx+1) = [];
-lb(1:nx+1)   = [];
-ub(1:nx+1)   = []; 
+x0_opt       = data(1:nx); 
+data(1:nx) = [];
+lb(1:nx)   = [];
+ub(1:nx)   = []; 
 
 % optimized steady-state
 xu_opt        = data(1:nx+nu); 

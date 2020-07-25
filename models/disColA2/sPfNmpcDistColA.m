@@ -94,7 +94,7 @@ while (mpciter <= mpciterations)
         ub_init = ub;
         
         % NLP sensitivity (predictor-corrector)
-        [primalPF, ~, elapsedqp] = jpredictor_licq_pure_3(@(p)DistColAMultistageDerivatives(p), p_init, p_final, xstart, ystart, delta_t, lb_init, ub_init, 0, N);
+        [primalPF, ~, elapsedqp] = jpredictor_licq_pure_3(@(x,y,p,N)DistColAMultistageDerivatives(x,y,p,N), p_init, p_final, xstart, ystart, delta_t, lb_init, ub_init, 0, N);
         
         [u_pf_opt, x_pf_opt] = arrangeOptResultsNew(primalPF, lb, ub, N);
         z1 = x_pf_opt(1:nx,5); % 4 = (d+1) + 1 (d=number of collocation point)
